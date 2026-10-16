@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suman Thapa | Full-Stack & Backend Engineer</title>
+  <meta name="description" content="Portfolio of Suman Thapa — SAP Full Stack Developer at SAP SE & M.Sc. Information Technology student at TH OWL." />
+  <link rel="icon" type="image/jpeg" href="./profile.jpeg" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #090d16;
+      color: #e2e8f0;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.09) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.09) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(56, 189, 248, 0.28);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-sky-500/30 selection:text-sky-200">
+
+  <!-- Sticky Top Navigation -->
+  <header class="sticky top-0 z-50 border-b border-white/5 bg-[#090d16]/80 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <img 
+          src="./profile.jpeg" 
+          alt="Suman Thapa" 
+          class="w-8 h-8 rounded-full object-cover ring-2 ring-sky-500/40 group-hover:ring-sky-400 transition"
+          onerror="this.src='https://ui-avatars.com/api/?name=Suman+Thapa&background=0284c7&color=fff&bold=true'"
+        />
+        <span class="font-mono text-sm font-medium text-slate-200 group-hover:text-sky-400 transition tracking-tight">
+          Suman Thapa
+        </span>
+      </a>
+      <nav class="hidden sm:flex items-center gap-8 text-sm font-medium text-slate-400">
+        <a href="#experience" class="hover:text-white transition">Experience</a>
+        <a href="#skills" class="hover:text-white transition">Skills</a>
+        <a href="#education" class="hover:text-white transition">Education</a>
+        <a href="mailto:sumanthapa3271@gmail.com" class="px-3.5 py-1.5 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20 hover:bg-sky-500/20 transition">
+          Contact Me
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-10 md:py-14 space-y-16">
+
+    <!-- ABOVE THE FOLD: Hero + Profile Bento Grid -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+      
+      <!-- Main Intro Card (8 cols) -->
+      <div class="lg:col-span-8 glass-card rounded-2xl p-8 md:p-10 flex flex-col justify-between">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-6">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              SAP Full Stack Developer @ SAP SE
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-300 text-xs font-medium">
+              <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i>
+              M.Sc. IT @ TH OWL
+            </span>
+          </div>
+
+          <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+            Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">Suman Thapa</span>
+          </h1>
+
+          <p class="text-slate-300 text-base md:text-lg leading-relaxed max-w-2xl">
+            Full-Stack & Backend Software Engineer specializing in scalable enterprise applications, distributed microservices, and AI-powered backend integrations. Currently building enterprise cloud solutions with <span class="text-white font-medium">SAP CAP (Node.js), SAPUI5, OData V4, and OpenAI LLMs</span> at <span class="text-white font-medium">SAP SE</span> while pursuing my Master's in Information Technology in Germany.
+          </p>
+        </div>
+
+        <!-- Contact & Social Bar -->
+        <div class="pt-8 mt-8 border-t border-white/10 flex flex-wrap items-center gap-3">
+          <a href="mailto:sumanthapa3271@gmail.com" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-sm transition shadow-lg shadow-sky-500/20">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            sumanthapa3271@gmail.com
+          </a>
+          <a href="https://github.com/sumanThapa11" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 text-sm font-medium border border-white/10 transition">
+            <i data-lucide="github" class="w-4 h-4"></i>
+            GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/suman-thapa/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 text-sm font-medium border border-white/10 transition">
+            <i data-lucide="linkedin" class="w-4 h-4"></i>
+            LinkedIn
+          </a>
+          <a href="./Suman_Thapa_CV.pdf" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 text-sm font-medium border border-white/10 transition">
+            <i data-lucide="file-text" class="w-4 h-4 text-sky-400"></i>
+            CV / Resume
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Profile Portrait & Highlights (4 cols) -->
+      <div class="lg:col-span-4 glass-card rounded-2xl p-6 md:p-8 flex flex-col items-center text-center justify-between">
+        <div class=" flex flex-col items-center">
+          <!-- Profile Image pulled from same directory (./profile.jpg) -->
+          <div class="relative mb-5">
+            <div class="w-32 h-32 md:w-36 md:h-36 rounded-full p-1 bg-gradient-to-tr from-sky-400 via-indigo-500 to-emerald-400 shadow-xl shadow-sky-500/10">
+              <img 
+                src="./profile.jpeg" 
+                alt="Suman Thapa" 
+                class="w-full h-full rounded-full object-cover bg-slate-900"
+                onerror="this.src='https://ui-avatars.com/api/?name=Suman+Thapa&size=256&background=0f172a&color=38bdf8&bold=true'"
+              />
+            </div>
+            <span class="absolute bottom-1 right-2 w-4 h-4 rounded-full bg-emerald-400 ring-4 ring-[#0f172a]" title="Based in Germany"></span>
+          </div>
+
+          <h2 class="text-lg font-bold text-white">Suman Thapa</h2>
+          <p class="text-xs font-mono text-sky-400 mt-0.5 flex items-center gap-1.5">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+            Lemgo, Germany
+          </p>
+        </div>
+
+        <div class="w-full text-left mt-6 pt-6 border-t border-white/10 space-y-3 text-xs text-slate-300">
+          <div class="flex items-start gap-2.5">
+            <i data-lucide="cpu" class="w-4 h-4 text-sky-400 shrink-0 mt-0.5"></i>
+            <span><strong>AI Integrations:</strong> OpenAI LLM function calling with SAP CAP</span>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <i data-lucide="server" class="w-4 h-4 text-indigo-400 shrink-0 mt-0.5"></i>
+            <span><strong>Backend Architecture:</strong> Node.js, gRPC, GraphQL, OData V4 & REST</span>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <i data-lucide="cloud" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+            <span><strong>Cloud & DevOps:</strong> SAP BTP (Cloud Foundry), AWS, Docker & Jenkins</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <i data-lucide="layers" class="w-5 h-5 text-sky-400"></i>
+        <h2 class="text-2xl font-bold text-white tracking-tight">Technical Skills</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        
+        <div class="glass-card rounded-xl p-5">
+          <div class="text-xs font-mono uppercase tracking-wider text-sky-400 mb-3">Backend & APIs</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-sky-500/10 border border-sky-500/20 text-sky-300 text-xs font-medium">Node.js</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-500/10 border border-sky-500/20 text-sky-300 text-xs font-medium">SAP CAP</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Express.js</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Koa</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">GraphQL</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">REST API</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">gRPC</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">OData V4</span>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-xl p-5">
+          <div class="text-xs font-mono uppercase tracking-wider text-indigo-400 mb-3">Languages & Frontend</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium">TypeScript</span>
+            <span class="px-2.5 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium">JavaScript</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Python</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">SQL</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">React</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">SAP UI5</span>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-xl p-5">
+          <div class="text-xs font-mono uppercase tracking-wider text-emerald-400 mb-3">Databases</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-medium">PostgreSQL</span>
+            <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-medium">SAP HANA</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">MongoDB</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Elasticsearch</span>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-xl p-5 md:col-span-2">
+          <div class="text-xs font-mono uppercase tracking-wider text-amber-400 mb-3">Cloud & DevOps</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-medium">SAP BTP</span>
+            <span class="px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-medium">AWS</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Docker</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Jenkins</span>
+            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Git</span>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-xl p-5">
+          <div class="text-xs font-mono uppercase tracking-wider text-rose-400 mb-3">Monitoring & Analytics</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-medium">ELK Stack</span>
+            <span class="px-2.5 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-medium">Grafana</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RELEVANT EXPERIENCE SECTION -->
+    <section id="experience" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <i data-lucide="terminal" class="w-5 h-5 text-sky-400"></i>
+        <h2 class="text-2xl font-bold text-white tracking-tight">Relevant Experience</h2>
+      </div>
+
+      <div class="space-y-6">
+
+        <!-- 1. SAP SE -->
+        <div class="glass-card rounded-2xl p-6 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
+            <div>
+              <div class="flex items-center gap-3">
+                <h3 class="text-xl font-bold text-white">SAP Full Stack Developer (Work-Study)</h3>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Current</span>
+              </div>
+              <div class="text-sky-400 font-medium text-sm mt-0.5">SAP SE · Walldorf, Germany</div>
+            </div>
+            <div class="font-mono text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 self-start md:self-auto">
+              Aug 2024 – Present
+            </div>
+          </div>
+
+          <ul class="space-y-2.5 text-slate-300 text-sm leading-relaxed list-disc list-inside marker:text-sky-400">
+            <li>Developed full-stack enterprise applications using <strong>SAP CAP (Node.js)</strong> and <strong>SAPUI5</strong>, building scalable <strong>OData V4</strong> services with custom business logic and annotations to integrate with <strong>SAP HANA</strong> and external APIs.</li>
+            <li>Implemented an integration with <strong>OpenAI's Large Language Models (LLMs)</strong>, utilizing function calling to parse natural language queries into structured data for triggering backend CAP services.</li>
+            <li>Secured applications using Authorization and Trust Management (<strong>XSUAA</strong>) and configured <strong>SAP BTP Destinations</strong> to ensure safe and reliable service-to-service communication.</li>
+            <li>Wrote unit tests for CAP services to ensure reliability.</li>
+            <li>Managed <strong>Jenkins CI/CD</strong> pipelines and deployed applications to the <strong>SAP BTP, Cloud Foundry</strong> environment.</li>
+          </ul>
+        </div>
+
+        <!-- 2. Innovate Tech -->
+        <div class="glass-card rounded-2xl p-6 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
+            <div>
+              <h3 class="text-xl font-bold text-white">Associate Backend Developer</h3>
+              <div class="text-sky-400 font-medium text-sm mt-0.5">Innovate Tech · Kathmandu, Nepal</div>
+            </div>
+            <div class="font-mono text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 self-start md:self-auto">
+              Jan 2023 – Mar 2024
+            </div>
+          </div>
+
+          <ul class="space-y-2.5 text-slate-300 text-sm leading-relaxed list-disc list-inside marker:text-sky-400">
+            <li>Worked on scalable microservices to develop features for a digital learning platform, <strong>My Second Teacher</strong>.</li>
+            <li>Developed and documented RESTful APIs using <strong>Express</strong> and <strong>Koa</strong> frameworks.</li>
+            <li>Built a real-time chat system using <strong>socket.io</strong> with private messaging, group chat, and user presence tracking for thousands of concurrent users.</li>
+            <li>Utilized the <strong>Mongoose</strong> library to interact with a <strong>MongoDB</strong> NoSQL database, including defining schema models, performing CRUD operations, and implementing queries for data retrieval.</li>
+            <li>Implemented the <strong>Sequelize ORM</strong> to communicate with <strong>PostgreSQL</strong>.</li>
+            <li>Integrated <strong>AWS</strong> services including <strong>Lambda, SQS, and SNS</strong> to develop decoupled and reusable application features, such as asynchronous notifications.</li>
+            <li>Conducted in-depth research on <strong>Prosody XMPP</strong> server to evaluate its feasibility for enhancing real-time communication features.</li>
+          </ul>
+        </div>
+
+        <!-- 3. Vairav Technology -->
+        <div class="glass-card rounded-2xl p-6 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
+            <div>
+              <h3 class="text-xl font-bold text-white">Full Stack Software Engineer</h3>
+              <div class="text-sky-400 font-medium text-sm mt-0.5">Vairav Technology · Kathmandu, Nepal</div>
+            </div>
+            <div class="font-mono text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 self-start md:self-auto">
+              May 2022 – Dec 2022
+            </div>
+          </div>
+
+          <ul class="space-y-2.5 text-slate-300 text-sm leading-relaxed list-disc list-inside marker:text-sky-400">
+            <li>Contributed to the development of <strong>Vairav Trident</strong>, an AI-enabled SIEM solution with built-in detection capabilities and integrated threat intelligence, ensuring comprehensive security visibility and continuous threat mitigation.</li>
+            <li>Developed scalable microservices that communicate over <strong>gRPC</strong> to process high-volume security event logs.</li>
+            <li>Developed APIs using <strong>Apollo GraphQL</strong> to serve data for security visualization dashboard and generating reports.</li>
+            <li>Implemented a trigger-based <strong>CDC (Change Data Capture) / Audit system in PostgreSQL</strong> to maintain real-time audit trail of security logs.</li>
+            <li>Developed an interactive frontend using <strong>React.js</strong> and <strong>Elastic UI</strong>, featuring visualization of security events.</li>
+            <li>Implemented role-based authentication/authorization middleware on backend services using <strong>Keycloak</strong> as JWT provider.</li>
+            <li>Utilized <strong>Prisma ORM</strong> model to communicate with PostgreSQL and the <strong>Elasticsearch</strong> client library for querying and indexing security logs, ensuring efficient data manipulation across SQL and NoSQL databases.</li>
+          </ul>
+        </div>
+
+        <!-- 4. Level 9 Tech -->
+        <div class="glass-card rounded-2xl p-6 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
+            <div>
+              <h3 class="text-xl font-bold text-white">Backend Developer Intern</h3>
+              <div class="text-sky-400 font-medium text-sm mt-0.5">Level 9 Tech · Kathmandu, Nepal</div>
+            </div>
+            <div class="font-mono text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 self-start md:self-auto">
+              Aug 2021 – Nov 2021
+            </div>
+          </div>
+
+          <ul class="space-y-2.5 text-slate-300 text-sm leading-relaxed list-disc list-inside marker:text-sky-400">
+            <li>Built REST API endpoints for a learning management system and airline booking platform using <strong>Django Rest Framework</strong> and <strong>PostgreSQL</strong>.</li>
+            <li>Wrote unit tests for API endpoints to ensure code quality.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <i data-lucide="graduation-cap" class="w-5 h-5 text-sky-400"></i>
+        <h2 class="text-2xl font-bold text-white tracking-tight">Education</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="font-mono text-xs text-sky-400 mb-2">2024 – Present</div>
+            <h3 class="text-lg font-bold text-white">M.Sc. Information Technology</h3>
+            <p class="text-slate-300 text-sm mt-1">Technische Hochschule Ostwestfalen-Lippe</p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+            <span>Lemgo, Germany</span>
+            <span class="text-emerald-400 font-medium">Current</span>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="font-mono text-xs text-indigo-400 mb-2">2019 – 2022</div>
+            <h3 class="text-lg font-bold text-white">BSc (Hons) Computing</h3>
+            <p class="text-slate-300 text-sm mt-1">London Metropolitan University (in collaboration with Islington College)</p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+            <span>Kathmandu, Nepal</span>
+            <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-medium">First Class Honours</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-white/5 py-8 mt-16 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>© 2026 Suman Thapa. All rights reserved.</p>
+      <div class="flex items-center gap-4">
+        <a href="mailto:sumanthapa3271@gmail.com" class="hover:text-slate-300 transition">Email</a>
+        <a href="https://github.com/sumanThapa11" target="_blank" rel="noopener" class="hover:text-slate-300 transition">GitHub</a>
+        <a href="https://www.linkedin.com/in/suman-thapa/" target="_blank" rel="noopener" class="hover:text-slate-300 transition">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
