@@ -3,29 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Suman Thapa | Full-Stack & Backend Engineer</title>
-  <meta name="description" content="Portfolio of Suman Thapa — SAP Full Stack Developer at SAP SE & M.Sc. Information Technology student at TH OWL." />
+  <title>Suman Thapa — Backend & Full-Stack Software Engineer</title>
+  <meta name="description" content="Personal website of Suman Thapa — Full-Stack & Backend Developer at SAP SE and M.Sc. IT student in Germany." />
   <link rel="icon" type="image/jpeg" href="./profile.jpeg" />
 
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <!-- Three.js (Subtle Light-Green 3D Ambient Particles) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+  <!-- Vanilla Tilt (Subtle 3D Card Physics) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+  <!-- Lucide Icons (for UI icons) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts: Fraunces, Plus Jakarta Sans, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
+          colors: {
+            canvas: '#F7FBF9',       // Soft mint-tinted white
+            surface: '#FFFFFF',      // Pure white card surface
+            mintlight: '#ECFDF5',    // Light green badge fill
+            mintborder: '#D1FAE5',   // Soft light-green border
+            brand: '#10B981',        // Fresh emerald green
+            branddark: '#059669',    // Deeper green for hover/text
+            ink: '#0F172A',          // Deep slate-black primary text
+            muted: '#475569',        // Clean muted slate secondary text
           },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            serif: ['Fraunces', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
         }
       }
     }
@@ -33,338 +50,643 @@
 
   <style>
     body {
-      background-color: #090d16;
-      color: #e2e8f0;
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.09) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.09) 0px, transparent 50%);
-      background-attachment: fixed;
+      background-color: #F7FBF9;
+      color: #0F172A;
+      overflow-x: hidden;
     }
-    .glass-card {
-      background: rgba(15, 23, 42, 0.65);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: border-color 0.2s ease, transform 0.2s ease;
+
+    /* Subtle dot pattern in soft green */
+    .bg-dots {
+      background-image: radial-gradient(rgba(16, 185, 129, 0.14) 1px, transparent 0);
+      background-size: 26px 26px;
     }
-    .glass-card:hover {
-      border-color: rgba(56, 189, 248, 0.28);
+
+    /* Clean White & Light-Green Spotlight Card */
+    .clean-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.04);
+      overflow: hidden;
+      transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .clean-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        500px circle at var(--card-mouse-x, 0px) var(--card-mouse-y, 0px),
+        rgba(16, 185, 129, 0.09),
+        transparent 40%
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .clean-card:hover::before {
+      opacity: 1;
+    }
+
+    .clean-card:hover {
+      border-color: #6EE7B7;
+      box-shadow: 0 18px 38px -12px rgba(16, 185, 129, 0.14);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F7FBF9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #10B981;
     }
   </style>
 </head>
-<body class="antialiased selection:bg-sky-500/30 selection:text-sky-200">
 
-  <!-- Sticky Top Navigation -->
-  <header class="sticky top-0 z-50 border-b border-white/5 bg-[#090d16]/80 backdrop-blur-md">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+<body class="antialiased selection:bg-emerald-200 selection:text-emerald-950">
+
+  <!-- Subtle 3D Light-Green Particle Canvas -->
+  <canvas id="bg-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-75"></canvas>
+  <div class="fixed inset-0 bg-dots pointer-events-none z-0"></div>
+
+  <!-- Soft Light-Green Ambient Blobs -->
+  <div class="fixed top-[-12%] left-[-8%] w-[520px] h-[520px] rounded-full bg-emerald-300/25 blur-[130px] pointer-events-none z-0"></div>
+  <div class="fixed bottom-[-12%] right-[-8%] w-[520px] h-[520px] rounded-full bg-teal-200/30 blur-[130px] pointer-events-none z-0"></div>
+
+  <!-- Floating Navigation Bar -->
+  <header class="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-4xl">
+    <div class="clean-card rounded-2xl px-4 py-2.5 flex items-center justify-between shadow-lg">
       <a href="#" class="flex items-center gap-3 group">
-        <img 
-          src="./profile.jpeg" 
-          alt="Suman Thapa" 
-          class="w-8 h-8 rounded-full object-cover ring-2 ring-sky-500/40 group-hover:ring-sky-400 transition"
-          onerror="this.src='https://ui-avatars.com/api/?name=Suman+Thapa&background=0284c7&color=fff&bold=true'"
-        />
-        <span class="font-mono text-sm font-medium text-slate-200 group-hover:text-sky-400 transition tracking-tight">
-          Suman Thapa
-        </span>
+        <div class="relative">
+          <img 
+            src="./profile.jpeg" 
+            alt="Suman Thapa" 
+            class="w-9 h-9 rounded-xl object-cover ring-2 ring-emerald-500/40 group-hover:ring-emerald-600 transition"
+            onerror="this.src='https://ui-avatars.com/api/?name=Suman+Thapa&background=10B981&color=ffffff&bold=true'"
+          />
+          <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-white"></span>
+        </div>
+        <div class="leading-tight">
+          <span class="font-serif font-semibold text-sm text-ink block group-hover:text-branddark transition">Suman Thapa</span>
+          <span class="font-mono text-[10px] text-muted block">Lemgo, Germany</span>
+        </div>
       </a>
-      <nav class="hidden sm:flex items-center gap-8 text-sm font-medium text-slate-400">
-        <a href="#experience" class="hover:text-white transition">Experience</a>
-        <a href="#skills" class="hover:text-white transition">Skills</a>
-        <a href="#education" class="hover:text-white transition">Education</a>
-        <a href="mailto:sumanthapa3271@gmail.com" class="px-3.5 py-1.5 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20 hover:bg-sky-500/20 transition">
-          Contact Me
-        </a>
+
+      <nav class="hidden md:flex items-center gap-1 text-xs font-medium text-muted">
+        <a href="#about" class="px-3 py-1.5 rounded-lg hover:bg-emerald-50 hover:text-branddark transition">About</a>
+        <a href="#experience" class="px-3 py-1.5 rounded-lg hover:bg-emerald-50 hover:text-branddark transition">Experience</a>
+        <a href="#skills" class="px-3 py-1.5 rounded-lg hover:bg-emerald-50 hover:text-branddark transition">Skills</a>
+        <a href="#education" class="px-3 py-1.5 rounded-lg hover:bg-emerald-50 hover:text-branddark transition">Education</a>
       </nav>
+
+      <div class="flex items-center gap-2">
+        <button onclick="toggleCmdPalette()" class="hidden sm:flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-emerald-50 border border-slate-200 text-xs font-mono text-muted hover:text-branddark transition" title="Quick Menu">
+          <i data-lucide="command" class="w-3.5 h-3.5 text-brand"></i>
+          <span>Cmd + K</span>
+        </button>
+        <a href="mailto:sumanthapa3271@gmail.com" class="px-3.5 py-1.5 rounded-xl bg-brand hover:bg-branddark text-white font-semibold text-xs transition shadow-md shadow-emerald-500/20">
+          Say Hello
+        </a>
+      </div>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto px-6 py-10 md:py-14 space-y-16">
+  <!-- Main Content -->
+  <main class="relative z-10 max-w-6xl mx-auto px-5 pt-28 pb-20 space-y-24">
 
-    <!-- ABOVE THE FOLD: Hero + Profile Bento Grid -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+    <!-- HERO SECTION -->
+    <section id="about" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-4">
       
-      <!-- Main Intro Card (8 cols) -->
-      <div class="lg:col-span-8 glass-card rounded-2xl p-8 md:p-10 flex flex-col justify-between">
-        <div>
-          <div class="flex flex-wrap items-center gap-2 mb-6">
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-medium">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              SAP Full Stack Developer @ SAP SE
-            </span>
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-300 text-xs font-medium">
-              <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i>
-              M.Sc. IT @ TH OWL
-            </span>
-          </div>
-
-          <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
-            Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">Suman Thapa</span>
-          </h1>
-
-          <p class="text-slate-300 text-base md:text-lg leading-relaxed max-w-2xl">
-            Full-Stack & Backend Software Engineer specializing in scalable enterprise applications, distributed microservices, and AI-powered backend integrations. Currently building enterprise cloud solutions with <span class="text-white font-medium">SAP CAP (Node.js), SAPUI5, OData V4, and OpenAI LLMs</span> at <span class="text-white font-medium">SAP SE</span> while pursuing my Master's in Information Technology in Germany.
-          </p>
+      <!-- Left Column: Human Intro (7 Cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-mintlight border border-mintborder text-branddark text-xs font-mono font-medium">
+          <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+          <span>Full-Stack Developer @ SAP SE · Master's Student @ TH OWL</span>
         </div>
 
-        <!-- Contact & Social Bar -->
-        <div class="pt-8 mt-8 border-t border-white/10 flex flex-wrap items-center gap-3">
-          <a href="mailto:sumanthapa3271@gmail.com" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-sm transition shadow-lg shadow-sky-500/20">
-            <i data-lucide="mail" class="w-4 h-4"></i>
-            sumanthapa3271@gmail.com
+        <h1 class="font-serif text-4xl sm:text-6xl font-semibold tracking-tight text-ink leading-[1.12]">
+          Hi, I'm Suman. <br />
+          <span class="italic font-normal text-branddark">I love servers,</span> clean APIs, and building things that scale.
+        </h1>
+
+        <p class="text-muted text-base sm:text-lg leading-relaxed max-w-2xl">
+          I'm a software engineer with a strong backend focus, currently living in Germany. Over the past few years, I've built everything from real-time chat servers and gRPC-based integrations for security platforms in Nepal to enterprise cloud applications at <strong class="text-ink font-semibold">SAP SE</strong>. Right now, I spend my days working with <span class="text-branddark font-mono text-sm font-medium">Node.js, TypeScript, SAP CAP, and SAPUI5</span> while completing my M.Sc. in Information Technology.
+        </p>
+
+        <!-- Actions (With Inline SVG Icons for GitHub & LinkedIn) -->
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <button onclick="copyEmail()" class="group inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-ink text-white hover:bg-branddark font-semibold text-sm transition shadow-lg shadow-slate-900/10">
+            <i data-lucide="mail" class="w-4 h-4 text-emerald-300 group-hover:scale-110 transition"></i>
+            <span id="copy-email-text">sumanthapa3271@gmail.com</span>
+          </button>
+
+          <a href="./Suman_Thapa_CV.pdf" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl clean-card text-ink hover:text-branddark text-sm font-semibold">
+            <i data-lucide="file-text" class="w-4 h-4 text-brand"></i>
+            <span>Read My CV</span>
           </a>
-          <a href="https://github.com/sumanThapa11" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 text-sm font-medium border border-white/10 transition">
-            <i data-lucide="github" class="w-4 h-4"></i>
-            GitHub
+
+          <!-- GitHub Button (Inline SVG — Always Visible) -->
+          <a href="https://github.com/sumanThapa11" target="_blank" rel="noopener" aria-label="GitHub" class="p-3 rounded-xl clean-card text-ink hover:text-branddark hover:border-emerald-400 transition" title="GitHub">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg>
           </a>
-          <a href="https://www.linkedin.com/in/sumanthapa11/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 text-sm font-medium border border-white/10 transition">
-            <i data-lucide="linkedin" class="w-4 h-4"></i>
-            LinkedIn
+
+          <!-- LinkedIn Button (Inline SVG — Always Visible) -->
+          <a href="https://www.linkedin.com/in/sumanthapa11/" target="_blank" rel="noopener" aria-label="LinkedIn" class="p-3 rounded-xl clean-card text-ink hover:text-branddark hover:border-emerald-400 transition" title="LinkedIn">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+            </svg>
           </a>
-          <a href="./Suman_Thapa_CV.pdf" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 text-sm font-medium border border-white/10 transition">
-            <i data-lucide="file-text" class="w-4 h-4 text-sky-400"></i>
-            CV / Resume
-          </a>
+        </div>
+
+        <!-- Quick Facts Row -->
+        <div class="grid grid-cols-3 gap-3 pt-4">
+          <div class="clean-card rounded-xl p-3.5">
+            <div class="font-mono text-[11px] text-muted uppercase">Currently At</div>
+            <div class="font-serif font-semibold text-base sm:text-lg text-ink mt-0.5">SAP SE</div>
+            <div class="text-[11px] text-branddark font-mono font-medium">Walldorf, DE</div>
+          </div>
+          <div class="clean-card rounded-xl p-3.5">
+            <div class="font-mono text-[11px] text-muted uppercase">Studying</div>
+            <div class="font-serif font-semibold text-base sm:text-lg text-ink mt-0.5">M.Sc. IT</div>
+            <div class="text-[11px] text-branddark font-mono font-medium">TH OWL · Lemgo</div>
+          </div>
+          <div class="clean-card rounded-xl p-3.5">
+            <div class="font-mono text-[11px] text-muted uppercase">Local Time</div>
+            <div id="germany-clock" class="font-mono font-semibold text-base sm:text-lg text-ink mt-0.5">--:--:--</div>
+            <div class="text-[11px] text-branddark font-mono font-medium">Germany (CET)</div>
+          </div>
         </div>
       </div>
 
-      <!-- Right Column: Profile Portrait & Highlights (4 cols) -->
-      <div class="lg:col-span-4 glass-card rounded-2xl p-6 md:p-8 flex flex-col items-center text-center justify-between">
-        <div class=" flex flex-col items-center">
-          <!-- Profile Image pulled from same directory (./profile.jpg) -->
-          <div class="relative mb-5">
-            <div class="w-32 h-32 md:w-36 md:h-36 rounded-full p-1 bg-gradient-to-tr from-sky-400 via-indigo-500 to-emerald-400 shadow-xl shadow-sky-500/10">
-              <img 
-                src="./profile.jpeg" 
-                alt="Suman Thapa" 
-                class="w-full h-full rounded-full object-cover bg-slate-900"
-                onerror="this.src='https://ui-avatars.com/api/?name=Suman+Thapa&size=256&background=0f172a&color=38bdf8&bold=true'"
-              />
+      <!-- Right Column: Portrait Card + Interactive Server Console (5 Cols) -->
+      <div class="lg:col-span-5 space-y-5">
+        
+        <!-- 3D Tilt Portrait Card -->
+        <div data-tilt data-tilt-max="6" data-tilt-speed="400" class="clean-card rounded-2xl p-6 relative group">
+          <div class="flex items-center gap-5">
+            <div class="relative shrink-0">
+              <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl p-1 bg-gradient-to-br from-emerald-400 via-teal-400 to-emerald-600 shadow-md">
+                <img 
+                  src="./profile.jpeg" 
+                  alt="Suman Thapa" 
+                  class="w-full h-full rounded-[12px] object-cover bg-white"
+                  onerror="this.src='https://ui-avatars.com/api/?name=Suman+Thapa&size=256&background=10B981&color=ffffff&bold=true'"
+                />
+              </div>
             </div>
-            <span class="absolute bottom-1 right-2 w-4 h-4 rounded-full bg-emerald-400 ring-4 ring-[#0f172a]" title="Based in Germany"></span>
-          </div>
-
-          <h2 class="text-lg font-bold text-white">Suman Thapa</h2>
-          <p class="text-xs font-mono text-sky-400 mt-0.5 flex items-center gap-1.5">
-            <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
-            Lemgo, Germany
-          </p>
-        </div>
-
-        <div class="w-full text-left mt-6 pt-6 border-t border-white/10 space-y-3 text-xs text-slate-300">
-          <div class="flex items-start gap-2.5">
-            <i data-lucide="cpu" class="w-4 h-4 text-sky-400 shrink-0 mt-0.5"></i>
-            <span><strong>AI Integrations:</strong> OpenAI LLM function calling with SAP CAP</span>
-          </div>
-          <div class="flex items-start gap-2.5">
-            <i data-lucide="server" class="w-4 h-4 text-indigo-400 shrink-0 mt-0.5"></i>
-            <span><strong>Backend Architecture:</strong> Node.js, gRPC, GraphQL, OData V4 & REST</span>
-          </div>
-          <div class="flex items-start gap-2.5">
-            <i data-lucide="cloud" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
-            <span><strong>Cloud & DevOps:</strong> SAP BTP (Cloud Foundry), AWS, Docker & Jenkins</span>
+            <div class="space-y-1.5">
+              <div class="font-mono text-xs text-branddark font-medium">Full-Stack &amp; Backend</div>
+              <h2 class="font-serif text-2xl font-semibold text-ink">Suman Thapa</h2>
+              <p class="text-xs text-muted leading-relaxed">
+                4+ years across enterprise cloud, EdTech microservices, and cybersecurity SIEM platforms.
+              </p>
+              <div class="flex items-center gap-1.5 pt-1 text-xs font-mono text-branddark font-medium">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+                <span>Lemgo / Walldorf, Germany</span>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- Interactive Server Console (Crisp Mint-Bordered Terminal) -->
+        <div class="clean-card rounded-2xl overflow-hidden border border-emerald-200 shadow-xl">
+          <div class="bg-emerald-50/90 px-4 py-2.5 border-b border-emerald-200/80 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span class="ml-2 font-mono text-[11px] text-emerald-950 font-medium">suman@server:~ (zsh)</span>
+            </div>
+            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 text-branddark font-medium">
+              Interactive
+            </span>
+          </div>
+
+          <div id="terminal-body" class="p-4 font-mono text-xs space-y-2.5 h-52 overflow-y-auto bg-white text-ink">
+            <div class="text-slate-400">// Quick inspect — click a command below or type <span class="text-branddark font-semibold">help</span></div>
+            <div id="terminal-output" class="space-y-2 pt-1">
+              <div class="p-2.5 rounded-lg bg-mintlight border border-mintborder text-[11px] text-emerald-900">
+                $ whoami → Backend-heavy Full-Stack Developer who enjoys designing clean APIs, database schemas, and scalable services.
+              </div>
+            </div>
+          </div>
+
+          <!-- Command Buttons -->
+          <div class="px-4 py-2 bg-emerald-50/50 border-t border-emerald-100 flex flex-wrap gap-1.5">
+            <button onclick="runTerminalCmd('stack')" class="px-2.5 py-1 rounded-md bg-white hover:bg-mintlight border border-emerald-300 text-branddark font-mono text-[11px] font-medium transition shadow-sm">
+              ./stack.sh
+            </button>
+            <button onclick="runTerminalCmd('work')" class="px-2.5 py-1 rounded-md bg-white hover:bg-mintlight border border-emerald-300 text-branddark font-mono text-[11px] font-medium transition shadow-sm">
+              ./work-history.sh
+            </button>
+            <button onclick="runTerminalCmd('databases')" class="px-2.5 py-1 rounded-md bg-white hover:bg-mintlight border border-emerald-300 text-branddark font-mono text-[11px] font-medium transition shadow-sm">
+              ./databases.sh
+            </button>
+            <button onclick="runTerminalCmd('clear')" class="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-muted font-mono text-[11px] transition ml-auto">
+              clear
+            </button>
+          </div>
+
+          <form onsubmit="handleTerminalSubmit(event)" class="flex items-center px-4 py-2.5 bg-white border-t border-slate-200 font-mono text-xs">
+            <span class="text-brand font-bold mr-2">❯</span>
+            <input 
+              id="terminal-input" 
+              type="text" 
+              placeholder="Type 'stack', 'work', 'databases', 'contact'..." 
+              class="w-full bg-transparent text-ink focus:outline-none placeholder:text-slate-400"
+              autocomplete="off"
+            />
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WHAT I DO BEST (3 Grounded Cards) -->
+    <section class="space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <div class="font-mono text-xs text-branddark font-semibold uppercase tracking-widest mb-2">01 / Craft</div>
+          <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink">What I Enjoy Building</h2>
+        </div>
+        <p class="text-xs font-mono text-muted">From database triggers to cloud deployments</p>
       </div>
 
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div data-tilt data-tilt-max="4" class="clean-card rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-mintlight border border-mintborder flex items-center justify-center text-branddark mb-6">
+              <i data-lucide="server" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-serif text-xl font-semibold text-ink mb-2">APIs &amp; Microservices</h3>
+            <p class="text-muted text-sm leading-relaxed">
+              Designing clean, well-documented backend services using Node.js (Express, Koa, SAP CAP) and Python—whether that's REST, Apollo GraphQL, OData V4, or high-speed gRPC between internal services.
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-100 flex flex-wrap gap-2 font-mono text-[11px] text-branddark font-medium">
+            <span>Node.js</span><span>·</span><span>REST</span><span>·</span><span>GraphQL</span><span>·</span><span>gRPC</span>
+          </div>
+        </div>
+
+        <div data-tilt data-tilt-max="4" class="clean-card rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-mintlight border border-mintborder flex items-center justify-center text-branddark mb-6">
+              <i data-lucide="database" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-serif text-xl font-semibold text-ink mb-2">Data &amp; Real-Time Systems</h3>
+            <p class="text-muted text-sm leading-relaxed">
+              Working across SQL and NoSQL stores—writing PostgreSQL change-data-capture (CDC) audit triggers, indexing high-volume logs in Elasticsearch, and scaling Socket.io chat rooms for thousands of users.
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-100 flex flex-wrap gap-2 font-mono text-[11px] text-branddark font-medium">
+            <span>PostgreSQL</span><span>·</span><span>MongoDB</span><span>·</span><span>SAP HANA</span><span>·</span><span>Socket.io</span>
+          </div>
+        </div>
+
+        <div data-tilt data-tilt-max="4" class="clean-card rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-mintlight border border-mintborder flex items-center justify-center text-branddark mb-6">
+              <i data-lucide="layers" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-serif text-xl font-semibold text-ink mb-2">Full-Stack &amp; Cloud Delivery</h3>
+            <p class="text-muted text-sm leading-relaxed">
+              Building interactive frontends in React and SAPUI5, securing services with Keycloak JWT or SAP XSUAA, and shipping reliable builds via Docker, Jenkins CI/CD, AWS, and SAP BTP Cloud Foundry.
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-100 flex flex-wrap gap-2 font-mono text-[11px] text-branddark font-medium">
+            <span>React</span><span>·</span><span>SAPUI5</span><span>·</span><span>AWS</span><span>·</span><span>SAP BTP</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EXPERIENCE TIMELINE SECTION -->
+    <section id="experience" class="space-y-10">
+      <div>
+        <div class="font-mono text-xs text-branddark font-semibold uppercase tracking-widest mb-2">02 / Experience</div>
+        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink">Where I've Worked</h2>
+      </div>
+
+      <div class="relative pl-6 sm:pl-8 border-l-2 border-emerald-200 space-y-10">
+
+        <!-- Role 1: SAP SE -->
+        <div class="relative group">
+          <span class="absolute -left-[31px] sm:-left-[39px] top-7 w-4 h-4 rounded-full bg-brand ring-4 ring-canvas"></span>
+          
+          <div class="clean-card rounded-2xl p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+              <div>
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <h3 class="font-serif text-xl sm:text-2xl font-semibold text-ink">SAP Full Stack Developer (Work-Study)</h3>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-mintlight text-branddark border border-mintborder">
+                    Current
+                  </span>
+                </div>
+                <div class="text-branddark font-semibold text-sm mt-1">
+                  SAP SE · <span class="text-muted font-normal">Walldorf, Germany</span>
+                </div>
+              </div>
+              <div class="font-mono text-xs text-muted bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200 shrink-0 self-start">
+                Aug 2024 – Present
+              </div>
+            </div>
+
+            <ul class="space-y-2.5 text-muted text-sm leading-relaxed">
+              <li class="flex items-start gap-3">
+                <span class="text-brand font-bold mt-0.5">•</span>
+                <span>Developed full-stack enterprise applications using <strong class="text-ink font-semibold">SAP CAP (Node.js)</strong> and <strong class="text-ink font-semibold">SAPUI5</strong>, building scalable <strong class="text-ink font-semibold">OData V4</strong> services with custom business logic and annotations to integrate with <strong class="text-ink font-semibold">SAP HANA</strong> and external APIs.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand font-bold mt-0.5">•</span>
+                <span>Secured applications using Authorization and Trust Management (<strong class="text-ink font-semibold">XSUAA</strong>) and configured <strong class="text-ink font-semibold">SAP BTP Destinations</strong> to ensure safe and reliable service-to-service communication.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand font-bold mt-0.5">•</span>
+                <span>Implemented an integration with OpenAI's LLMs using function calling to parse natural language queries into structured data for triggering backend CAP services.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand font-bold mt-0.5">•</span>
+                <span>Wrote unit tests for CAP services to ensure reliability and managed <strong class="text-ink font-semibold">Jenkins CI/CD</strong> pipelines to deploy applications to the <strong class="text-ink font-semibold">SAP BTP, Cloud Foundry</strong> environment.</span>
+              </li>
+            </ul>
+
+            <div class="flex flex-wrap gap-2 mt-6 pt-5 border-t border-slate-100 font-mono text-xs">
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">SAP CAP (Node.js)</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">SAPUI5</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">OData V4</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">SAP HANA</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">SAP BTP &amp; XSUAA</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">Jenkins CI/CD</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Role 2: Innovate Tech -->
+        <div class="relative group">
+          <span class="absolute -left-[31px] sm:-left-[39px] top-7 w-4 h-4 rounded-full bg-emerald-400 ring-4 ring-canvas"></span>
+          
+          <div class="clean-card rounded-2xl p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+              <div>
+                <h3 class="font-serif text-xl sm:text-2xl font-semibold text-ink">Associate Backend Developer</h3>
+                <div class="text-branddark font-semibold text-sm mt-1">
+                  Innovate Tech · <span class="text-muted font-normal">Kathmandu, Nepal</span>
+                </div>
+              </div>
+              <div class="font-mono text-xs text-muted bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200 shrink-0 self-start">
+                Jan 2023 – Mar 2024
+              </div>
+            </div>
+
+            <ul class="space-y-2.5 text-muted text-sm leading-relaxed">
+              <li class="flex items-start gap-3">
+                <span class="text-brand font-bold mt-0.5">•</span>
+                <span>Worked on scalable microservices to develop features for the digital learning platform <strong class="text-ink font-semibold">My Second Teacher</strong>, building and documenting RESTful APIs with <strong class="text-ink font-semibold">Express</strong> and <strong class="text-ink font-semibold">Koa</strong>.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand font-bold mt-0.5">•</span>
+                <span>Built a real-time chat system using <strong class="text-ink font-semibold">socket.io</strong> with private messaging, group chat, and user presence tracking for <strong class="text-ink font-semibold">thousands of concurrent users</strong>.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand font-bold mt-0.5">•</span>
+                <span>Used <strong class="text-ink font-semibold">Mongoose</strong> with <strong class="text-ink font-semibold">MongoDB</strong> and <strong class="text-ink font-semibold">Sequelize ORM</strong> with <strong class="text-ink font-semibold">PostgreSQL</strong> to define schema models, perform CRUD operations, and optimize data queries.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand font-bold mt-0.5">•</span>
+                <span>Integrated <strong class="text-ink font-semibold">AWS services (Lambda, SQS, SNS)</strong> for decoupled asynchronous notifications and researched <strong class="text-ink font-semibold">Prosody XMPP</strong> server feasibility for real-time communication.</span>
+              </li>
+            </ul>
+
+            <div class="flex flex-wrap gap-2 mt-6 pt-5 border-t border-slate-100 font-mono text-xs">
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">Node.js (Express &amp; Koa)</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">Socket.io</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">MongoDB &amp; Mongoose</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">PostgreSQL &amp; Sequelize</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">AWS (Lambda, SQS, SNS)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Role 3: Vairav Technology -->
+        <div class="relative group">
+          <span class="absolute -left-[31px] sm:-left-[39px] top-7 w-4 h-4 rounded-full bg-emerald-300 ring-4 ring-canvas"></span>
+          
+          <div class="clean-card rounded-2xl p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+              <div>
+                <h3 class="font-serif text-xl sm:text-2xl font-semibold text-ink">Full Stack Software Engineer</h3>
+                <div class="text-branddark font-semibold text-sm mt-1">
+                  Vairav Technology · <span class="text-muted font-normal">Kathmandu, Nepal</span>
+                </div>
+              </div>
+              <div class="font-mono text-xs text-muted bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200 shrink-0 self-start">
+                May 2022 – Dec 2022
+              </div>
+            </div>
+
+            <ul class="space-y-2.5 text-muted text-sm leading-relaxed">
+              <li class="flex items-start gap-3">
+                <span class="text-brand font-bold mt-0.5">•</span>
+                <span>Contributed to <strong class="text-ink font-semibold">Vairav Trident</strong>, an AI-enabled SIEM solution with built-in detection capabilities and integrated threat intelligence for continuous security visibility.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand font-bold mt-0.5">•</span>
+                <span>Developed scalable microservices communicating over <strong class="text-ink font-semibold">gRPC</strong> to process high-volume security event logs, plus <strong class="text-ink font-semibold">Apollo GraphQL</strong> APIs to serve security dashboards and reports.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand font-bold mt-0.5">•</span>
+                <span>Implemented a trigger-based <strong class="text-ink font-semibold">CDC (Change Data Capture) / Audit system in PostgreSQL</strong> for real-time audit trails, using <strong class="text-ink font-semibold">Prisma ORM</strong> and the <strong class="text-ink font-semibold">Elasticsearch</strong> client library for log indexing and querying.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand font-bold mt-0.5">•</span>
+                <span>Built an interactive frontend with <strong class="text-ink font-semibold">React.js</strong> and <strong class="text-ink font-semibold">Elastic UI</strong>, and implemented role-based auth middleware on backend services using <strong class="text-ink font-semibold">Keycloak</strong> as JWT provider.</span>
+              </li>
+            </ul>
+
+            <div class="flex flex-wrap gap-2 mt-6 pt-5 border-t border-slate-100 font-mono text-xs">
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">gRPC</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">Apollo GraphQL</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">PostgreSQL CDC</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">Elasticsearch</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">React.js &amp; Elastic UI</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">Keycloak JWT</span>
+              <span class="px-2.5 py-1 rounded-md bg-mintlight text-emerald-900 border border-mintborder">Prisma ORM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Role 4: Level 9 Tech -->
+        <div class="relative group">
+          <span class="absolute -left-[31px] sm:-left-[39px] top-7 w-4 h-4 rounded-full bg-slate-300 ring-4 ring-canvas"></span>
+          
+          <div class="clean-card rounded-2xl p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+              <div>
+                <h3 class="font-serif text-xl font-semibold text-ink">Backend Developer Intern</h3>
+                <div class="text-branddark font-semibold text-sm mt-1">
+                  Level 9 Tech · <span class="text-muted font-normal">Kathmandu, Nepal</span>
+                </div>
+              </div>
+              <div class="font-mono text-xs text-muted bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200 shrink-0 self-start">
+                Aug 2021 – Nov 2021
+              </div>
+            </div>
+
+            <ul class="space-y-2 text-muted text-sm leading-relaxed">
+              <li class="flex items-start gap-3">
+                <span class="text-brand font-bold mt-0.5">•</span>
+                <span>Built REST API endpoints for a learning management system and airline booking platform using <strong class="text-ink font-semibold">Django Rest Framework</strong> and <strong class="text-ink font-semibold">PostgreSQL</strong>, and wrote unit tests to ensure code quality.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
     </section>
 
     <!-- SKILLS SECTION -->
-    <section id="skills" class="space-y-6">
-      <div class="flex items-center gap-3">
-        <i data-lucide="layers" class="w-5 h-5 text-sky-400"></i>
-        <h2 class="text-2xl font-bold text-white tracking-tight">Technical Skills</h2>
+    <section id="skills" class="space-y-8">
+      <div>
+        <div class="font-mono text-xs text-branddark font-semibold uppercase tracking-widest mb-2">03 / Technical Stack</div>
+        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink">Tools &amp; Technologies I Use</h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         
-        <div class="glass-card rounded-xl p-5">
-          <div class="text-xs font-mono uppercase tracking-wider text-sky-400 mb-3">Backend & APIs</div>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-2.5 py-1 rounded-md bg-sky-500/10 border border-sky-500/20 text-sky-300 text-xs font-medium">Node.js</span>
-            <span class="px-2.5 py-1 rounded-md bg-sky-500/10 border border-sky-500/20 text-sky-300 text-xs font-medium">SAP CAP</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Express.js</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Koa</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">GraphQL</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">REST API</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">gRPC</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">OData V4</span>
+        <div class="clean-card rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-xs font-semibold uppercase tracking-wider text-branddark">Programming Languages</span>
+            <i data-lucide="code" class="w-4 h-4 text-brand"></i>
+          </div>
+          <div class="flex flex-wrap gap-2 font-mono text-xs">
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">TypeScript</span>
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">JavaScript</span>
+            <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-ink border border-slate-200">Python</span>
+            <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-ink border border-slate-200">SQL</span>
           </div>
         </div>
 
-        <div class="glass-card rounded-xl p-5">
-          <div class="text-xs font-mono uppercase tracking-wider text-indigo-400 mb-3">Languages & Frontend</div>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-2.5 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium">TypeScript</span>
-            <span class="px-2.5 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium">JavaScript</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Python</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">SQL</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">React</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">SAP UI5</span>
+        <div class="clean-card rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-xs font-semibold uppercase tracking-wider text-branddark">Backend</span>
+            <i data-lucide="terminal" class="w-4 h-4 text-brand"></i>
+          </div>
+          <div class="flex flex-wrap gap-2 font-mono text-xs">
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">Node.js</span>
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">Express.js</span>
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">Koa</span>
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">SAP CAP</span>
+            <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-ink border border-slate-200">GraphQL</span>
+            <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-ink border border-slate-200">REST API</span>
+            <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-ink border border-slate-200">gRPC</span>
           </div>
         </div>
 
-        <div class="glass-card rounded-xl p-5">
-          <div class="text-xs font-mono uppercase tracking-wider text-emerald-400 mb-3">Databases</div>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-medium">PostgreSQL</span>
-            <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-medium">SAP HANA</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">MongoDB</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Elasticsearch</span>
+        <div class="clean-card rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-xs font-semibold uppercase tracking-wider text-branddark">Databases</span>
+            <i data-lucide="database" class="w-4 h-4 text-brand"></i>
+          </div>
+          <div class="flex flex-wrap gap-2 font-mono text-xs">
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">PostgreSQL</span>
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">MongoDB</span>
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">SAP HANA</span>
+            <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-ink border border-slate-200">Elasticsearch</span>
           </div>
         </div>
 
-        <div class="glass-card rounded-xl p-5 md:col-span-2">
-          <div class="text-xs font-mono uppercase tracking-wider text-amber-400 mb-3">Cloud & DevOps</div>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-medium">SAP BTP</span>
-            <span class="px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-medium">AWS</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Docker</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Jenkins</span>
-            <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-200 text-xs">Git</span>
+        <div class="clean-card rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-xs font-semibold uppercase tracking-wider text-branddark">Frontend</span>
+            <i data-lucide="layout" class="w-4 h-4 text-brand"></i>
+          </div>
+          <div class="flex flex-wrap gap-2 font-mono text-xs">
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">React</span>
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">SAP UI5</span>
           </div>
         </div>
 
-        <div class="glass-card rounded-xl p-5">
-          <div class="text-xs font-mono uppercase tracking-wider text-rose-400 mb-3">Monitoring & Analytics</div>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-2.5 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-medium">ELK Stack</span>
-            <span class="px-2.5 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-medium">Grafana</span>
+        <div class="clean-card rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-xs font-semibold uppercase tracking-wider text-branddark">Cloud &amp; DevOps</span>
+            <i data-lucide="cloud" class="w-4 h-4 text-brand"></i>
+          </div>
+          <div class="flex flex-wrap gap-2 font-mono text-xs">
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">AWS</span>
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">SAP BTP</span>
+            <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-ink border border-slate-200">Docker</span>
+            <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-ink border border-slate-200">Jenkins</span>
+            <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-ink border border-slate-200">Git</span>
           </div>
         </div>
 
-      </div>
-    </section>
-
-    <!-- RELEVANT EXPERIENCE SECTION -->
-    <section id="experience" class="space-y-6">
-      <div class="flex items-center gap-3">
-        <i data-lucide="terminal" class="w-5 h-5 text-sky-400"></i>
-        <h2 class="text-2xl font-bold text-white tracking-tight">Relevant Experience</h2>
-      </div>
-
-      <div class="space-y-6">
-
-        <!-- 1. SAP SE -->
-        <div class="glass-card rounded-2xl p-6 md:p-8">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
-            <div>
-              <div class="flex items-center gap-3">
-                <h3 class="text-xl font-bold text-white">SAP Full Stack Developer (Work-Study)</h3>
-                <span class="px-2.5 py-0.5 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Current</span>
-              </div>
-              <div class="text-sky-400 font-medium text-sm mt-0.5">SAP SE · Walldorf, Germany</div>
-            </div>
-            <div class="font-mono text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 self-start md:self-auto">
-              Aug 2024 – Present
-            </div>
+        <div class="clean-card rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-xs font-semibold uppercase tracking-wider text-branddark">Monitoring &amp; Analytics</span>
+            <i data-lucide="activity" class="w-4 h-4 text-brand"></i>
           </div>
-
-          <ul class="space-y-2.5 text-slate-300 text-sm leading-relaxed list-disc list-inside marker:text-sky-400">
-            <li>Developed full-stack enterprise applications using <strong>SAP CAP (Node.js)</strong> and <strong>SAPUI5</strong>, building scalable <strong>OData V4</strong> services with custom business logic and annotations to integrate with <strong>SAP HANA</strong> and external APIs.</li>
-            <li>Implemented an integration with <strong>OpenAI's Large Language Models (LLMs)</strong>, utilizing function calling to parse natural language queries into structured data for triggering backend CAP services.</li>
-            <li>Secured applications using Authorization and Trust Management (<strong>XSUAA</strong>) and configured <strong>SAP BTP Destinations</strong> to ensure safe and reliable service-to-service communication.</li>
-            <li>Wrote unit tests for CAP services to ensure reliability.</li>
-            <li>Managed <strong>Jenkins CI/CD</strong> pipelines and deployed applications to the <strong>SAP BTP, Cloud Foundry</strong> environment.</li>
-          </ul>
-        </div>
-
-        <!-- 2. Innovate Tech -->
-        <div class="glass-card rounded-2xl p-6 md:p-8">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
-            <div>
-              <h3 class="text-xl font-bold text-white">Associate Backend Developer</h3>
-              <div class="text-sky-400 font-medium text-sm mt-0.5">Innovate Tech · Kathmandu, Nepal</div>
-            </div>
-            <div class="font-mono text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 self-start md:self-auto">
-              Jan 2023 – Mar 2024
-            </div>
+          <div class="flex flex-wrap gap-2 font-mono text-xs">
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">ELK Stack</span>
+            <span class="px-3 py-1.5 rounded-lg bg-mintlight text-emerald-950 border border-mintborder font-medium">Grafana</span>
           </div>
-
-          <ul class="space-y-2.5 text-slate-300 text-sm leading-relaxed list-disc list-inside marker:text-sky-400">
-            <li>Worked on scalable microservices to develop features for a digital learning platform, <strong>My Second Teacher</strong>.</li>
-            <li>Developed and documented RESTful APIs using <strong>Express</strong> and <strong>Koa</strong> frameworks.</li>
-            <li>Built a real-time chat system using <strong>socket.io</strong> with private messaging, group chat, and user presence tracking for thousands of concurrent users.</li>
-            <li>Utilized the <strong>Mongoose</strong> library to interact with a <strong>MongoDB</strong> NoSQL database, including defining schema models, performing CRUD operations, and implementing queries for data retrieval.</li>
-            <li>Implemented the <strong>Sequelize ORM</strong> to communicate with <strong>PostgreSQL</strong>.</li>
-            <li>Integrated <strong>AWS</strong> services including <strong>Lambda, SQS, and SNS</strong> to develop decoupled and reusable application features, such as asynchronous notifications.</li>
-            <li>Conducted in-depth research on <strong>Prosody XMPP</strong> server to evaluate its feasibility for enhancing real-time communication features.</li>
-          </ul>
-        </div>
-
-        <!-- 3. Vairav Technology -->
-        <div class="glass-card rounded-2xl p-6 md:p-8">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
-            <div>
-              <h3 class="text-xl font-bold text-white">Full Stack Software Engineer</h3>
-              <div class="text-sky-400 font-medium text-sm mt-0.5">Vairav Technology · Kathmandu, Nepal</div>
-            </div>
-            <div class="font-mono text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 self-start md:self-auto">
-              May 2022 – Dec 2022
-            </div>
-          </div>
-
-          <ul class="space-y-2.5 text-slate-300 text-sm leading-relaxed list-disc list-inside marker:text-sky-400">
-            <li>Contributed to the development of <strong>Vairav Trident</strong>, an AI-enabled SIEM solution with built-in detection capabilities and integrated threat intelligence, ensuring comprehensive security visibility and continuous threat mitigation.</li>
-            <li>Developed scalable microservices that communicate over <strong>gRPC</strong> to process high-volume security event logs.</li>
-            <li>Developed APIs using <strong>Apollo GraphQL</strong> to serve data for security visualization dashboard and generating reports.</li>
-            <li>Implemented a trigger-based <strong>CDC (Change Data Capture) / Audit system in PostgreSQL</strong> to maintain real-time audit trail of security logs.</li>
-            <li>Developed an interactive frontend using <strong>React.js</strong> and <strong>Elastic UI</strong>, featuring visualization of security events.</li>
-            <li>Implemented role-based authentication/authorization middleware on backend services using <strong>Keycloak</strong> as JWT provider.</li>
-            <li>Utilized <strong>Prisma ORM</strong> model to communicate with PostgreSQL and the <strong>Elasticsearch</strong> client library for querying and indexing security logs, ensuring efficient data manipulation across SQL and NoSQL databases.</li>
-          </ul>
-        </div>
-
-        <!-- 4. Level 9 Tech -->
-        <div class="glass-card rounded-2xl p-6 md:p-8">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
-            <div>
-              <h3 class="text-xl font-bold text-white">Backend Developer Intern</h3>
-              <div class="text-sky-400 font-medium text-sm mt-0.5">Level 9 Tech · Kathmandu, Nepal</div>
-            </div>
-            <div class="font-mono text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 self-start md:self-auto">
-              Aug 2021 – Nov 2021
-            </div>
-          </div>
-
-          <ul class="space-y-2.5 text-slate-300 text-sm leading-relaxed list-disc list-inside marker:text-sky-400">
-            <li>Built REST API endpoints for a learning management system and airline booking platform using <strong>Django Rest Framework</strong> and <strong>PostgreSQL</strong>.</li>
-            <li>Wrote unit tests for API endpoints to ensure code quality.</li>
-          </ul>
         </div>
 
       </div>
     </section>
 
     <!-- EDUCATION SECTION -->
-    <section id="education" class="space-y-6">
-      <div class="flex items-center gap-3">
-        <i data-lucide="graduation-cap" class="w-5 h-5 text-sky-400"></i>
-        <h2 class="text-2xl font-bold text-white tracking-tight">Education</h2>
+    <section id="education" class="space-y-8">
+      <div>
+        <div class="font-mono text-xs text-branddark font-semibold uppercase tracking-widest mb-2">04 / Education</div>
+        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink">Academic Background</h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         
-        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+        <div data-tilt data-tilt-max="4" class="clean-card rounded-2xl p-7 flex flex-col justify-between">
           <div>
-            <div class="font-mono text-xs text-sky-400 mb-2">2024 – Present</div>
-            <h3 class="text-lg font-bold text-white">M.Sc. Information Technology</h3>
-            <p class="text-slate-300 text-sm mt-1">Technische Hochschule Ostwestfalen-Lippe</p>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="font-mono text-xs font-medium px-2.5 py-1 rounded-md bg-mintlight text-branddark border border-mintborder">2024 – Present</span>
+              <span class="font-mono text-xs text-muted">Lemgo, Germany</span>
+            </div>
+            <h3 class="font-serif text-2xl font-semibold text-ink">M.Sc. Information Technology</h3>
+            <p class="text-muted text-sm mt-1">Technische Hochschule Ostwestfalen-Lippe (TH OWL)</p>
           </div>
-          <div class="mt-4 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
-            <span>Lemgo, Germany</span>
-            <span class="text-emerald-400 font-medium">Current</span>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-muted">
+            <span>Master's Program</span>
+            <span class="text-branddark font-semibold">Currently Enrolled</span>
           </div>
         </div>
 
-        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+        <div data-tilt data-tilt-max="4" class="clean-card rounded-2xl p-7 flex flex-col justify-between">
           <div>
-            <div class="font-mono text-xs text-indigo-400 mb-2">2019 – 2022</div>
-            <h3 class="text-lg font-bold text-white">BSc (Hons) Computing</h3>
-            <p class="text-slate-300 text-sm mt-1">London Metropolitan University (in collaboration with Islington College)</p>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="font-mono text-xs font-medium px-2.5 py-1 rounded-md bg-slate-100 text-ink border border-slate-200">2019 – 2022</span>
+              <span class="font-mono text-xs text-muted">Kathmandu, Nepal</span>
+            </div>
+            <h3 class="font-serif text-2xl font-semibold text-ink">BSc (Hons) Computing</h3>
+            <p class="text-muted text-sm mt-1">London Metropolitan University (in collaboration with Islington College)</p>
           </div>
-          <div class="mt-4 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
-            <span>Kathmandu, Nepal</span>
-            <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-medium">First Class Honours</span>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
+            <span class="text-muted">Classification</span>
+            <span class="px-2.5 py-0.5 rounded bg-mintlight text-branddark border border-mintborder font-semibold">
+              First Class Honours
+            </span>
           </div>
         </div>
 
@@ -373,19 +695,235 @@
 
   </main>
 
-  <footer class="border-t border-white/5 py-8 mt-16 text-center text-xs text-slate-500">
+  <!-- COMMAND PALETTE MODAL (Cmd + K) -->
+  <div id="cmd-palette" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4">
+    <div class="clean-card w-full max-w-lg rounded-2xl border border-emerald-200 shadow-2xl overflow-hidden bg-white">
+      <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2 font-mono text-xs text-branddark font-semibold">
+          <i data-lucide="command" class="w-4 h-4"></i>
+          <span>Quick Jump</span>
+        </div>
+        <button onclick="toggleCmdPalette()" class="text-xs font-mono text-muted hover:text-ink px-2 py-0.5 rounded bg-slate-100">ESC</button>
+      </div>
+      <div class="p-2 space-y-1 font-mono text-xs">
+        <a href="#experience" onclick="toggleCmdPalette()" class="flex items-center justify-between p-3 rounded-xl hover:bg-mintlight text-ink transition">
+          <span class="flex items-center gap-2.5"><i data-lucide="briefcase" class="w-4 h-4 text-brand"></i> Experience (SAP SE, Innovate Tech, Vairav)</span>
+          <span class="text-muted">#experience</span>
+        </a>
+        <a href="#skills" onclick="toggleCmdPalette()" class="flex items-center justify-between p-3 rounded-xl hover:bg-mintlight text-ink transition">
+          <span class="flex items-center gap-2.5"><i data-lucide="layers" class="w-4 h-4 text-brand"></i> Technical Skills</span>
+          <span class="text-muted">#skills</span>
+        </a>
+        <a href="./Suman_Thapa_CV.pdf" target="_blank" class="flex items-center justify-between p-3 rounded-xl hover:bg-mintlight text-ink transition">
+          <span class="flex items-center gap-2.5"><i data-lucide="file-text" class="w-4 h-4 text-brand"></i> View CV (PDF)</span>
+          <span class="text-muted">PDF ↗</span>
+        </a>
+        <button onclick="copyEmail(); toggleCmdPalette();" class="w-full flex items-center justify-between p-3 rounded-xl hover:bg-mintlight text-ink transition text-left">
+          <span class="flex items-center gap-2.5"><i data-lucide="copy" class="w-4 h-4 text-brand"></i> Copy Email (sumanthapa3271@gmail.com)</span>
+          <span class="text-muted">Copy</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER (With Inline SVG Icons) -->
+  <footer class="relative z-10 border-t border-emerald-200/70 bg-white/60 py-10 text-center text-xs text-muted font-mono">
     <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p>© 2026 Suman Thapa. All rights reserved.</p>
-      <div class="flex items-center gap-4">
-        <a href="mailto:sumanthapa3271@gmail.com" class="hover:text-slate-300 transition">Email</a>
-        <a href="https://github.com/sumanThapa11" target="_blank" rel="noopener" class="hover:text-slate-300 transition">GitHub</a>
-        <a href="https://www.linkedin.com/in/sumanthapa11/" target="_blank" rel="noopener" class="hover:text-slate-300 transition">LinkedIn</a>
+      <div>© 2026 Suman Thapa · Lemgo, Germany</div>
+      <div class="flex items-center gap-5">
+        <a href="mailto:sumanthapa3271@gmail.com" class="hover:text-branddark transition flex items-center gap-1.5">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          <span>Email</span>
+        </a>
+        <a href="https://github.com/sumanThapa11" target="_blank" rel="noopener" class="hover:text-branddark transition flex items-center gap-1.5">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <a href="https://www.linkedin.com/in/sumanthapa11/" target="_blank" rel="noopener" class="hover:text-branddark transition flex items-center gap-1.5">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+          </svg>
+          <span>LinkedIn</span>
+        </a>
       </div>
     </div>
   </footer>
 
+  <!-- Interactive Scripts -->
   <script>
     lucide.createIcons();
+
+    // Mouse-tracking light-green spotlight on cards
+    document.querySelectorAll('.clean-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--card-mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--card-mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+
+    // Live Germany Clock
+    function updateClock() {
+      const now = new Date();
+      const formatter = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/Berlin',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      });
+      document.getElementById('germany-clock').textContent = formatter.format(now);
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Copy Email
+    function copyEmail() {
+      navigator.clipboard.writeText('sumanthapa3271@gmail.com');
+      const textEl = document.getElementById('copy-email-text');
+      textEl.textContent = 'Email Copied! ✓';
+      setTimeout(() => {
+        textEl.textContent = 'sumanthapa3271@gmail.com';
+      }, 2200);
+    }
+
+    // Command Palette (Cmd+K / Ctrl+K)
+    function toggleCmdPalette() {
+      const modal = document.getElementById('cmd-palette');
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+    }
+    window.addEventListener('keydown', e => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        toggleCmdPalette();
+      }
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('cmd-palette');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    });
+
+    // Interactive Server Console
+    const terminalResponses = {
+      stack: `<div class="p-2.5 rounded-lg bg-mintlight border border-mintborder text-[11px] space-y-1">
+        <div class="text-branddark font-semibold">$ cat stack.json</div>
+        <div class="text-ink">• Languages: TypeScript, JavaScript, Python, SQL</div>
+        <div class="text-muted">• Backend: Node.js, Express, Koa, SAP CAP, GraphQL, REST, gRPC</div>
+        <div class="text-branddark">• Frontend & Cloud: React, SAPUI5, AWS, SAP BTP, Docker, Jenkins</div>
+      </div>`,
+      work: `<div class="p-2.5 rounded-lg bg-mintlight border border-mintborder text-[11px] space-y-1">
+        <div class="text-branddark font-semibold">$ git log --oneline career</div>
+        <div class="text-ink">• 2024–Now: SAP SE (Full Stack Developer — SAP CAP, UI5, HANA, BTP)</div>
+        <div class="text-muted">• 2023–2024: Innovate Tech (Associate Backend — Express, Koa, Socket.io, AWS)</div>
+        <div class="text-muted">• 2022: Vairav Tech (Full Stack — SIEM, gRPC, GraphQL, PostgreSQL CDC)</div>
+        <div class="text-muted">• 2021: Level 9 Tech (Backend Intern — Django REST, PostgreSQL)</div>
+      </div>`,
+      databases: `<div class="p-2.5 rounded-lg bg-mintlight border border-mintborder text-[11px] space-y-1">
+        <div class="text-branddark font-semibold">$ ./inspect-db.sh</div>
+        <div class="text-ink">• Relational: PostgreSQL (Sequelize, Prisma, Trigger CDC), SAP HANA</div>
+        <div class="text-muted">• NoSQL & Search: MongoDB (Mongoose), Elasticsearch (ELK Stack)</div>
+      </div>`,
+      contact: `<div class="p-2.5 rounded-lg bg-mintlight border border-mintborder text-[11px] text-branddark font-medium">
+        📧 sumanthapa3271@gmail.com · 📍 Lemgo, Germany
+      </div>`,
+      help: `<div class="p-2.5 rounded-lg bg-slate-100 border border-slate-200 text-[11px] text-muted">
+        Commands: <span class="text-branddark font-semibold">stack</span>, <span class="text-branddark font-semibold">work</span>, <span class="text-branddark font-semibold">databases</span>, <span class="text-branddark font-semibold">contact</span>, <span class="text-branddark font-semibold">clear</span>
+      </div>`
+    };
+
+    function runTerminalCmd(cmd) {
+      const out = document.getElementById('terminal-output');
+      const body = document.getElementById('terminal-body');
+      const clean = cmd.trim().toLowerCase();
+      if (clean === 'clear') {
+        out.innerHTML = '';
+        return;
+      }
+      const response = terminalResponses[clean] || `<div class="text-rose-600 text-[11px]">Command not found: "${clean}". Type <span class="underline">help</span>.</div>`;
+      out.innerHTML += `<div><span class="text-branddark font-semibold">suman@server:~$</span> ${clean}</div>` + response;
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function handleTerminalSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('terminal-input');
+      if (!input.value.trim()) return;
+      runTerminalCmd(input.value);
+      input.value = '';
+    }
+
+    // Three.js Subtle Emerald Floating Nodes Background
+    (function initThreeBackground() {
+      const canvas = document.getElementById('bg-canvas');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 40;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const particleCount = 95;
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount * 3; i++) {
+        positions[i] = (Math.random() - 0.5) * 80;
+      }
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      const material = new THREE.PointsMaterial({
+        color: 0x10B981,
+        size: 0.45,
+        transparent: true,
+        opacity: 0.45
+      });
+
+      const particles = new THREE.Points(geometry, material);
+      scene.add(particles);
+
+      const octGeo = new THREE.OctahedronGeometry(15, 1);
+      const octMat = new THREE.MeshBasicMaterial({
+        color: 0x059669,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.06
+      });
+      const octMesh = new THREE.Mesh(octGeo, octMat);
+      scene.add(octMesh);
+
+      let mouseX = 0;
+      let mouseY = 0;
+      window.addEventListener('mousemove', e => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        particles.rotation.y += 0.0007;
+        particles.rotation.x += 0.0003;
+        octMesh.rotation.y -= 0.0009;
+        octMesh.rotation.x += 0.0005;
+
+        camera.position.x += (mouseX * 3.5 - camera.position.x) * 0.03;
+        camera.position.y += (-mouseY * 3.5 - camera.position.y) * 0.03;
+        camera.lookAt(scene.position);
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    })();
   </script>
 </body>
 </html>
